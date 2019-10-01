@@ -3,12 +3,15 @@
 
 #include <opencv2/core.hpp>
 #include <iostream>
+#include <chrono>
 
 #include <stdexcept>
 #include <sstream>
 namespace student {
 
  int imageCount = 0;
+ int minutes_interval_between_saving_images = 1;
+ auto time_last_image_was_saved = std::chrono::system_clock::now();
 
  void loadImage(cv::Mat& img_out, const std::string& config_folder){
      throw std::logic_error( "STUDENT FUNCTION - LOAD IMAGE - NOT IMPLEMENTED" );
@@ -17,6 +20,11 @@ namespace student {
  void genericImageListener(const cv::Mat& img_in, std::string topic, const std::string& config_folder){
      try
      {
+         if (std::chrono::system_clock::now() > time_last_image_was_saved + std::chrono::minutes(minutes_interval_between_saving_images)){
+             time_last_image_was_saved = std::chrono::system_clock::now();
+         }else if (imageCount != 0){
+             return;
+         }
          //cv::imshow( "myPicture", img_in);  // display the image in the specified window
          std::string path = "/home/lar2019/workspace/project/images/";
          std::string pictureName = std::to_string(imageCount) + ".jpg";
