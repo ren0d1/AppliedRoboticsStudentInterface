@@ -25,15 +25,20 @@ namespace student {
          }else if (imageCount != 0){
              return;
          }
-         //cv::imshow( "myPicture", img_in);  // display the image in the specified window
+
          std::string path = "/home/lar2019/workspace/project/images/";
          std::string pictureName = std::to_string(imageCount) + ".jpg";
          std::cout << pictureName << " to be saved\n";
          cv::imwrite(path + pictureName, img_in);
-         char c = cv::waitKey(30);               // Waits for a pressed key.
-         //cv::imwrite(..., ... );                        // write the image on file
          std::cout << "Image saved\n";
          imageCount++;
+         
+         cv::Mat test_img = img_in;
+         cv::Rect rect(0, 0, test_img.size().width / 2, test_img.size().height / 2);
+         cv::rectangle(test_img, rect, cv::Scalar(255, 0, 0));
+
+         cv::imshow( "ImageWithDrawOver", test_img);  // display the image in the specified window
+         char c = cv::waitKey(30);               // Waits for a pressed key
      }
      catch (int e)
      {
