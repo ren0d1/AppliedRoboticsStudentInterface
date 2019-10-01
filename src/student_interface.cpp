@@ -32,9 +32,10 @@ namespace student {
          cv::imwrite(path + pictureName, img_in);
          std::cout << "Image saved\n";
          imageCount++;
-         
-         cv::Mat test_img = img_in;
-         cv::Rect rect(0, 0, test_img.size().width / 2, test_img.size().height / 2);
+
+         cv::Mat test_img;
+         cv::resize(img_in, test_img, cv::Size(), 0.75, 0.75);
+         cv::Rect rect(0, 0, img_in.size().width / 2, img_in.size().height / 2);
          cv::rectangle(test_img, rect, cv::Scalar(255, 0, 0));
 
          cv::imshow( "ImageWithDrawOver", test_img);  // display the image in the specified window
