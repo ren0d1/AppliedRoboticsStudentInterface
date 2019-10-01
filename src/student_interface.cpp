@@ -38,7 +38,8 @@ namespace student {
          cv::Rect rect(0, 0, img_in.size().width / 2, img_in.size().height / 2);
          cv::rectangle(test_img, rect, cv::Scalar(255, 0, 0));
 
-         cv::imshow( "ImageWithDrawOver", test_img);  // display the image in the specified window
+         cv::Mat loaded_image = cv::imread(path + pictureName, cv::IMREAD_COLOR ); // Read the file
+         cv::imshow( "ImageLoadedFromFile", loaded_image);  // display the image in the specified window
          char c = cv::waitKey(30);               // Waits for a pressed key
      }
      catch (int e)
