@@ -44,12 +44,12 @@ namespace student {
       //cv::resize(img_in,img_out , cv::Size(), 0.75, 0.75);
 
       //show the image in a window
-      cv::imshow("Display window", img_in);
+      //cv::imshow("Display window", img_in);
       //waits for input, otherwise the window is open infinitely.
-      char x = cv::waitKey(0);
+      //char x = cv::waitKey(0);
 
       //enters if statement if s is pressed.
-      if(x == 's'){
+      //if(x == 's'){
         // create a path string with a time stamp to store the image
         time_t rawtime;
         struct tm * timeinfo;
@@ -59,11 +59,11 @@ namespace student {
         strftime(buffer,sizeof(buffer),"%d-%m-%Y %H:%M:%S",timeinfo);      
         std::string str = "/home/hendrik/Desktop/test_images/img"; //Attention: Insert here the directory where the files should be stored.
         std::string str1(buffer);
-        std::string str2 = ".png";
+        std::string str2 = ".jpg";
         std::string str3 = str + str1 + str2;
         //stores the image
         bool check = cv::imwrite(str3, img_in);
-      }
+      //}
       //force windows to close
       cv::destroyAllWindows();
     }
