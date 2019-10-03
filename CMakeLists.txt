@@ -26,6 +26,7 @@ add_executable(calibrate
 ## Add shared library
 add_library(student SHARED
    src/student_interface.cpp
+   src/ReturnPath.cpp
 )
 
 ## Link with libraries 
