@@ -15,6 +15,9 @@
 time_t now = 0;
 double elapsed_time =  20.0; //time in seconds when pictures can be shown/stored.
 
+//set to true if cv::initUndistortRectifyMap in imageundistorted() has been already executed. 
+
+
 
 namespace student {
  
@@ -63,14 +66,28 @@ namespace student {
  
   
 
-  bool extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_points, const cv::Mat& camera_matrix, cv::Mat& rvec, cv::Mat& tvec, const std::string& config_folder){
-    throw std::logic_error( "STUDENT FUNCTION NOT IMPLEMENTED" );   
+  bool extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_points, const cv::Mat& camera_matrix, 
+  cv::Mat& rvec, cv::Mat& tvec, const std::string& config_folder){
+    
+    cv::solvePnP(object_points, InputArray imagePoints, camera_matrix, NULL, rvec, tvec, bool useExtrinsicGuess=true, int flags=ITERATIVE )
+    
+       
   }
 
   void imageUndistort(const cv::Mat& img_in, cv::Mat& img_out, 
-          const cv::Mat& cam_matrix, const cv::Mat& dist_coeffs, const std::string& config_folder){
+      const cv::Mat& cam_matrix, const cv::Mat& dist_coeffs, const std::string& config_folder){
+        
+      static bool alreadyexecuted = false;
+      static cv::Mat full_map1, full_map2;
+      
+      // cv::undistort(img_in,img_out,cam_matrix,dist_coeffs);
+      if(alreadyexecuted== false){
+        cv::Mat R;
+        cv::initUndistortRectifyMap(cam_matrix, dist_coeffs, R, cam_matrix, img_in.size(), CV_16SC2, full_map1, full_map2);
+        alreadyexecuted == true;
+      }
 
-    throw std::logic_error( "STUDENT FUNCTION NOT IMPLEMENTED" );  
+      cv::remap(img_in, img_out, full_map1, full_map2, cv::INTER_LINEAR);
 
   }
 
